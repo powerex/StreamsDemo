@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class User {
+class LocalUser {
     private String name;
     private int age;
     private String location;
 
-    public User(String name, int age, String location) {
+    public LocalUser(String name, int age, String location) {
         this.name = name;
         this.age = age;
         this.location = location;
@@ -28,31 +28,32 @@ class User {
     }
 
     public boolean isFrom(String location) {
+        System.out.println("Hello from isFrom()");
         return this.location.equals(location);
     }
 }
 
 public class StreamDemo01 {
 
-    public static List<User> users = new ArrayList<>();
+    public static List<LocalUser> users = new ArrayList<>();
 
     static {
-        users.add(new User("Peter", 23, "Kyiv"));
-        users.add(new User("Semen", 22, "Lviv"));
-        users.add(new User("Olga", 23, "Kyiv"));
-        users.add(new User("Anna", 23, "Odesa"));
-        users.add(new User("Oleg", 23, "Kyiv"));
+        users.add(new LocalUser("Peter", 23, "Kyiv"));
+        users.add(new LocalUser("Semen", 22, "Lviv"));
+        users.add(new LocalUser("Olga", 23, "Kyiv"));
+        users.add(new LocalUser("Anna", 23, "Odesa"));
+        users.add(new LocalUser("Oleg", 23, "Kyiv"));
     }
 
     public static void main(String[] args) {
-        System.out.println(getCountOldVersion());
+        System.out.println(getCountNewVersion());
     }
 
     public static long getCountOldVersion() {
         long count = 0;
-        Iterator<User> iterator = users.iterator();
+        Iterator<LocalUser> iterator = users.iterator();
         while (iterator.hasNext()) {
-            User user = iterator.next();
+            LocalUser user = iterator.next();
             if (user.isFrom("Kyiv"))
                 count++;
         }
@@ -60,6 +61,9 @@ public class StreamDemo01 {
     }
 
     public static long getCountNewVersion() {
-        return users.stream().filter(user -> user.isFrom("Kyiv")).count();
+        long result = 0;
+        result = users.stream().filter(user -> user.isFrom("Kyiv")).count();
+//        users.stream().filter(user -> user.isFrom("Kyiv"));
+        return result;
     }
 }

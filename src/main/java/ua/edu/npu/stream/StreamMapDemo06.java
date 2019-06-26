@@ -13,7 +13,9 @@ public class StreamMapDemo06 {
         Arrays.stream(collection.mapToInt((s) -> Integer.parseInt(s.substring(1))).toArray()).forEach(System.out::println);
 
         collection = Arrays.asList("1,2,0", "4,5").stream();
-        final String[] strings = collection.flatMap((p) -> Arrays.asList(p.split(",")).stream()).toArray(String[]::new);
+        final String[] strings = collection.flatMap(
+                (p) -> Arrays.asList(p.split(",")).stream())
+                .toArray(String[]::new);
         Arrays.stream(strings).forEach(System.out::print);
         System.out.println();
     }

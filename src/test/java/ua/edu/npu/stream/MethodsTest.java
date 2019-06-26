@@ -59,7 +59,9 @@ public class MethodsTest {
 
     @Test
     public void shouldReturnCollectionsSameElements() {
-        final Collection<String> coll = collection.stream().filter((s) -> s.contains("1")).collect(Collectors.toList());
+        final Collection<String> coll = collection.stream()
+                .filter((s) -> s.contains("1"))
+                .collect(Collectors.toList());
         Collection<String> expected = Arrays.asList("a1", "a1");
         assertEquals(expected, coll);
     }
@@ -85,24 +87,30 @@ public class MethodsTest {
     @Test
     public void shouldReturnTrueWhenNoneMatch() {
         final boolean b = collection.stream().noneMatch("a7"::equals);
-        assertTrue("Must be false", b);
+        assertTrue("Must be true", b);
     }
 
     @Test
     public void shouldReturnSummOddNumbers() {
-        final Integer collect = Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.summingInt(((p) -> p % 2 == 1 ? p : 0)));
+        final Integer collect = Arrays.asList(1, 2, 3, 4)
+                .stream()
+                .collect(Collectors.summingInt(((p) -> p % 2 == 1 ? p : 0)));
         assertEquals("Sum 1 + 3 = 4", java.util.Optional.ofNullable(collect), 4);
     }
 
     @Test
     public void shouldReturnAverageReducedByOne() {
-        final Double collect = Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.averagingInt((p) -> p - 1));
+        final Double collect = Arrays.asList(1, 2, 3, 4)
+                .stream()
+                .collect(Collectors.averagingInt((p) -> p - 1));
         assertEquals("Average 1.5", collect, 1.5, 1e-4);
     }
 
     @Test
     public void shouldReturnStatisticIncreasedByThree() {
-        final IntSummaryStatistics collect = Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.summarizingInt((p) -> p + 3));
+        final IntSummaryStatistics collect = Arrays.asList(1, 2, 3, 4)
+                .stream()
+                .collect(Collectors.summarizingInt((p) -> p + 3));
         final String expected = "IntSummaryStatistics{count=4, sum=22, min=4, average=5,500000, max=7}";
         assertTrue(expected.equals(collect.toString()));
     }

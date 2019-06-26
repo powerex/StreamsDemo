@@ -1,47 +1,15 @@
 package ua.edu.npu.stream;
 
+import ua.edu.npu.stream.entity.Sex;
+import ua.edu.npu.stream.entity.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StreamFilterDemo03 {
 
-    enum Sex {MALE, FEMALE}
-
-    static class User {
-        private String name;
-        private int age;
-        private Sex sex;
-
-        public User(String name, int age, Sex sex) {
-            this.name = name;
-            this.age = age;
-            this.sex = sex;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public Sex getSex() {
-            return sex;
-        }
-
-        @Override
-        public String toString() {
-            return "User{" +
-                    "name='" + name + '\'' +
-                    ", age=" + age +
-                    ", sex=" + sex +
-                    '}';
-        }
-    }
-
-    public static List<StreamFilterDemo03.User> users = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
 
     static {
         users.add(new User("Peter", 23, Sex.MALE));
@@ -54,9 +22,8 @@ public class StreamFilterDemo03 {
     public static void main(String[] args) {
 
 
-        final List<User> collect = users.stream().filter((p) -> p.getAge() >= 18 && p.getAge() < 27
-                && p.getSex() == Sex.MALE).collect(Collectors.toList());
-        collect.stream().forEach(System.out::println);
+        users.stream().filter((p) -> p.getAge() >= 18 && p.getAge() < 27
+                && p.getSex() == Sex.MALE).forEach(System.out::println);
 
 
         final double average = users.stream().filter((p) -> p.getSex() == Sex.MALE).

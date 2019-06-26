@@ -33,6 +33,7 @@ public class CreateStream02 {
 
         //Stream from collection
         Collection<String> collection = Arrays.asList("a1", "a2", "a3");
+        Stream<String> fromCollection = collection.stream();
 
         //Stream from values
         Stream<String> streamFromValues = Stream.of("a1", "a2", "a3");

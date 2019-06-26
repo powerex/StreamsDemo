@@ -1,5 +1,8 @@
 package ua.edu.npu.stream;
 
+import ua.edu.npu.stream.entity.Sex;
+import ua.edu.npu.stream.entity.User;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,66 +12,16 @@ import java.util.stream.Stream;
 
 public class StreamSortedDemo04 {
 
-    enum Sex {MALE, FEMALE}
-
-    static class User {
-        private String name;
-        private Integer age;
-        private StreamSortedDemo04.Sex sex;
-
-        public User(String name, Integer age, StreamSortedDemo04.Sex sex) {
-            this.name = name;
-            this.age = age;
-            this.sex = sex;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
-        public StreamSortedDemo04.Sex getSex() {
-            return sex;
-        }
-
-        @Override
-        public String toString() {
-            return "User{" +
-                    "name='" + name + '\'' +
-                    ", age=" + age +
-                    ", sex=" + sex +
-                    '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof User)) return false;
-            User User = (User) o;
-            return Objects.equals(name, User.name) &&
-                    Objects.equals(age, User.age) &&
-                    Objects.equals(sex, User.sex);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, age, sex);
-        }
-    }
-
-    static List<StreamSortedDemo04.User> users = new ArrayList<>();
+    static List<User> users = new ArrayList<>();
     static List<String> strings = Arrays.asList("a1", "a4", "a3", "a2", "a1", "a4");
     static List<Integer> integers = Arrays.asList(1, 2, 3, 4, 2);
 
     static {
-        users.add(new StreamSortedDemo04.User("Peter", 23, StreamSortedDemo04.Sex.MALE));
-        users.add(new StreamSortedDemo04.User("Poul", 30, StreamSortedDemo04.Sex.MALE));
-        users.add(new StreamSortedDemo04.User("Olga", 17, StreamSortedDemo04.Sex.FEMALE));
-        users.add(new StreamSortedDemo04.User("Semen", 20, StreamSortedDemo04.Sex.MALE));
-        users.add(new StreamSortedDemo04.User("Orest", 61, StreamSortedDemo04.Sex.MALE));
+        users.add(new User("Peter", 23, Sex.MALE));
+        users.add(new User("Poul", 30, Sex.MALE));
+        users.add(new User("Olga", 17, Sex.FEMALE));
+        users.add(new User("Semen", 20, Sex.MALE));
+        users.add(new User("Orest", 61, Sex.MALE));
     }
 
     public static void main(String[] args) {
@@ -103,7 +56,10 @@ public class StreamSortedDemo04 {
 
         System.out.println(integers.stream().reduce(Integer::max).orElse(-1));
 
-        System.out.println(integers.stream().filter(o -> o % 2 != 0).reduce((s1, s2) -> s1 + s2).orElse(0));
+        System.out.println(integers.stream()
+                .filter(o -> o % 2 != 0)
+                .reduce((s1, s2) -> s1 + s2)
+                .orElse(0));
     }
 
 }
